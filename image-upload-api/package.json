@@ -1,0 +1,15 @@
+{
+  "name": "image-upload-api",
+  "version": "1.0.0",
+  "description": "this project defines the s3 image upload lambda  ",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dilip Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1130.0",
+    "dotenv": "^16.0.0"
+  }
+}

@@ -1,0 +1,38 @@
+service: image-upload-api
+
+frameworkVersion: '2 || 3'
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+custom:
+  fileUploadBucketName: <s3-bucket-name>
+
+functions:
+  s3FileUploader:
+    handler: handler.s3FileUploader
+    name: s3-file-uploader
+    description: A lambda handler that uploads a file to an S3 bucket based on an API Gateway trigger.
+    timeout: 60 # seconds
+    memorySize: 128 # mb
+    events:
+      - http:
+          path: images
+          method: POST
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "s3:Put*"
+        Resource: arn:aws:s3:::<s3-bucket-name>
+    environment:
+      FILE_UPLOAD_BUCKET_NAME: '<s3-bucket-name>'
+
+resources:
+  Resources:
+    FileBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: '<s3-bucket-name>'
